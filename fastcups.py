@@ -1,6 +1,7 @@
+from gevent import monkey; monkey.patch_all()
 from flask import Flask, render_template, request, make_response
 from flask_socketio import SocketIO, emit
-import random, string, collections, time
+import random, string, collections, time, os
 from fastcore.utils import *
 from urllib.parse import urlparse
 
@@ -55,5 +56,5 @@ def handle_disconnect():
 @patch
 def count(self:L): return len(self)
 
-socketio.run(app)
+socketio.run(app, host='0.0.0.0', port=int(os.environ.get('PORT', 5000)))
 
